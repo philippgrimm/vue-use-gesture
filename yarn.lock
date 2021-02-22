@@ -460,10 +460,10 @@
     "@vueuse/shared" "4.1.1"
     vue-demi latest
 
-"@vueuse/motion@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@vueuse/motion/-/motion-1.0.0.tgz#e35e8a1999849fabe15ff60d20963953421f8ad0"
-  integrity sha512-wX/qyc95YSDmiOspm09VjZ+zdrkTfQ84IVvjGPQ5E0pO7X7CS89F8gh+P7pun8ZU6ob71FXuGYiUlR06rdn1uA==
+"@vueuse/motion@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@vueuse/motion/-/motion-1.0.1.tgz#003ecb3af8bddac45371405d9fd4c1605cb22945"
+  integrity sha512-ziXOlFoEJyveXFBGX/zX9lOlm0gbzOsla+pZtjsp/DrgNo56XDHn4G8HaRz4gEOXvGAX8GwbNB+91xdp29ne8w==
   dependencies:
     "@vueuse/core" "^4.1.1"
     popmotion "^9.1.0"

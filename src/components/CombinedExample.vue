@@ -7,7 +7,6 @@
       class="absolute w-full h-full rounded-xl bg-gradient-to-br from-red-400 to-fuchsia-700 cursor-grab touch-action-none"
     ></div>
   </div>
-  <div class="mt-64">{{ variant }}</div>
 </template>
 <script lang="ts">
 import { defineComponent, ref } from "vue";
@@ -17,20 +16,12 @@ import { useGesture } from "../use-gesture";
 export default defineComponent({
   setup: () => {
     const el = ref<HTMLElement>();
-    const { set, apply, variant, state, variants } = useMotion(el, {
-      initial: {
-        x: 0,
-        y: 0,
-        rotateX: 0,
-        rotateY: 0,
-        rotateZ: 0,
-      },
-    });
+    const { apply, motionProperties } = useMotion(el);
 
     const calcX = (y: number, ly: number) =>
-      -(y - ly - window.innerHeight / 2) / 20;
+      -(y - ly - window.innerHeight / 2) / 10;
     const calcY = (x: number, lx: number) =>
-      (x - lx - window.innerWidth / 2) / 20;
+      (x - lx - window.innerWidth / 2) / 10;
 
     const drag = ref(false);
 
@@ -45,11 +36,10 @@ export default defineComponent({
           if (dragging) {
             return;
           }
-          console.log(variant.value, state.value, variants.value);
-          //   set({
-          //   state.value?..rotateX = calcX(py, y as number);
-          //   state.rotateY = calcY(px, x as number);
-          //   }),
+          apply({
+            rotateX: calcX(py, (motionProperties as any).y || 0),
+            rotateY: calcY(px, (motionProperties as any).x || 0),
+          });
         },
         onHover: ({ hovering }) =>
           !hovering && apply({ rotateX: 0, rotateY: 0 }),
@@ -58,7 +48,7 @@ export default defineComponent({
       { domTarget: el.value, eventOptions: { passive: false } }
     );
 
-    return { el, bind, variant };
+    return { el, bind };
   },
 });
 </script>
