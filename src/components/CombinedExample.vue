@@ -4,7 +4,10 @@
     <div
       ref="el"
       v-bind="{ ...bind() }"
-      class="absolute w-full h-full rounded-xl bg-gradient-to-br from-red-400 to-fuchsia-700 cursor-grab touch-action-none"
+      :style="{
+        transform: 'perspective(600px)',
+      }"
+      class="absolute w-full h-full hover:shadow-md rounded-xl bg-gradient-to-br from-red-400 to-fuchsia-700 cursor-grab touch-action-none"
     ></div>
   </div>
 </template>
@@ -19,9 +22,9 @@ export default defineComponent({
     const { apply, motionProperties } = useMotion(el);
 
     const calcX = (y: number, ly: number) =>
-      -(y - ly - window.innerHeight / 2) / 10;
+      -(y - ly - window.innerHeight / 2) / 15;
     const calcY = (x: number, lx: number) =>
-      (x - lx - window.innerWidth / 2) / 10;
+      (x - lx - window.innerWidth / 2) / 15;
 
     const drag = ref(false);
 
@@ -30,8 +33,7 @@ export default defineComponent({
         onDragStart: () => (drag.value = true),
         onDrag: ({ offset: [x, y] }) => apply({ x, y, rotateX: 0, rotateY: 0 }),
         onDragEnd: () => (drag.value = false),
-        onPinch: ({ offset: [d, a] }) =>
-          apply({ scale: Math.max(1, d / 100), rotateZ: a }),
+        onPinch: ({ offset: [d, a] }) => apply({ scale: d / 200, rotateZ: a }),
         onMove: ({ xy: [px, py], dragging }) => {
           if (dragging) {
             return;
@@ -43,12 +45,14 @@ export default defineComponent({
         },
         onHover: ({ hovering }) =>
           !hovering && apply({ rotateX: 0, rotateY: 0 }),
-        // onWheel: ({ offset: [, y] }) => setWheel({ wheelY: y }),
       },
       { domTarget: el.value, eventOptions: { passive: false } }
     );
 
-    return { el, bind };
+    return {
+      el,
+      bind,
+    };
   },
 });
 </script>
