@@ -20,8 +20,7 @@
   <div class="flex items-center justify-center py-24">
     <CombinedExample />
   </div>
-  <!-- scroll, swipe, combined, bottom sheet, eisfläche -->
-  <!-- styles, publish, lib (tests?), refactor -->
+  <!-- scroll, swipe, -->
 </template>
 
 <script lang="ts">
